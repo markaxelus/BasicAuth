@@ -1,7 +1,13 @@
 import express from "express"; 
-import { PORT, mongoDBURL } from "./config.js";
+import { PORT } from "./config/config.js";
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
 
-const app = express(); // Define express
+if (process.env.NODE_ENV !== 'production'){
+    dotenv.config({ path: '../.env' });
+}
+
+const app = express(); // Define expresscd
 
 app.get('/', (req, res) => {
     console.log(req)
@@ -9,15 +15,13 @@ app.get('/', (req, res) => {
     // or res.send(`MERN Tutorial`) but generic, not used widely
 });
 
-
-
-mongoose.connect(mongoDBURL)
+mongoose.connect(process.env.DATABASE_URL)
     .then(() => {
-    console.log("MongoDB database connected");
+    console.log("MongoDB Database connected");
     app.listen(PORT, () => {
         console.log(`Server running on PORT: ${PORT}`);
         });
     })
     .catch((error) => {
         console.log(error);
-    });
+    })
