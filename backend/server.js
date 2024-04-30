@@ -19,11 +19,15 @@ const app = express(); // Define express
 // Method 1: Allow all origins with default of cors(*)
 //app.use(cors());
 // Method 2: Allow Custom Origins [better option]
-app.use({
-    origin: 'http://localhost:3000/',
-    methods: ['POST', 'PUT', 'GET', 'DELETE'],
-    allowedHeaders: ['Content-Type']
-})
+app.use(
+    cors(
+        {
+            origin: 'http://localhost:3000/',
+            methods: ['POST', 'PUT', 'GET', 'DELETE'],
+            allowedHeaders: ['Content-Type']
+        }
+    )
+);
 
 // Middlewares for parsing json
 app.use(express.json()); 
