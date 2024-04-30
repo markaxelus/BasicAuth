@@ -1,12 +1,15 @@
-import { User } from '../models/userModel.js'
+import { User } from '../models/userModel.js';
+import express from 'express';
 
-const express = require('express');
-const router = express.Router();
+const userRouter = express.Router();
 
 // POST: Register a new user
-router.post('/register', async (req, res) => {
+userRouter.post('/register', async (req, res) => {
     try {
         const { username, email, password } = req.body;
+        if (!req.body.username || !req.body.email || !req.body.password) {
+            res.status(400).send({ message : 'Send all required fields'});
+        }
         // hashing password
         const newUser = new User({ username, email, password});
         await newUser.save();
@@ -17,7 +20,7 @@ router.post('/register', async (req, res) => {
 });
 
 // POST: Login user
-router.post('/login', async (req, res) => {
+userRouter.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body;
         const user = await User.findOne({ email });
@@ -30,20 +33,25 @@ router.post('/login', async (req, res) => {
     }
 });
 
-// FETCH user profile
-router.get('/profile/:username', async (req, res) => {
+// FETCH user profile [one]
+userRouter.get('/profile/:username', async (req, res) => {
     try {
         const user = await User.findOne({ username: req.params.username });
         if (!user) {
             throw new Error('User not found');
         }
+        const userCount = await User.countDocuments();
+        res.json({ 
+            count: userCount,
+            data: user
+        });
     } catch(error) {
         res.status(404).send(error.message);
     }
 });
 
 // PUT: update user profile
-router.put('/update/:username', async(req, res) => {
+userRouter.put('/update/:username', async(req, res) => {
     try {
         const { bio, profilePicture } = req.body;
         const user = await User.findOneAndUpdate({ username: req.params.username }, {
@@ -53,7 +61,7 @@ router.put('/update/:username', async(req, res) => {
         { 
             new: true // Returns the updated object
         });
-        if (!use) {
+        if (!user) {
             throw new Error("User not found");
         }
         res.send(`User: ${user.username} updated`)
@@ -61,3 +69,5 @@ router.put('/update/:username', async(req, res) => {
         res.status(400).send(error.message);
     }
 });
+
+export default userRouter;

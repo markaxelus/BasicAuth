@@ -3,6 +3,9 @@ import { PORT } from "./config/config.js";
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 
+// Routers Init
+import userRouter from './routers/userRouter.js'
+
 if (process.env.NODE_ENV !== 'production'){
     dotenv.config({ path: '../.env' });
 }
@@ -11,6 +14,8 @@ const app = express(); // Define express
 
 app.use(express.json()); // Middlewares for parsing json
 app.use(express.urlencoded({ extended: true}));
+
+app.use('/users', userRouter);
 
 app.get('/', (req, res) => {
     console.log(req)
@@ -28,3 +33,4 @@ mongoose.connect(process.env.DATABASE_URL)
     .catch((error) => {
         console.log(error);
     })
+

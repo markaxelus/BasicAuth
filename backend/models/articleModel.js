@@ -1,32 +1,33 @@
-import mongoose from 'mongoose'
+import mongoose from 'mongoose';
+import { User } from '../models/userModel.js';
 
 const articleSchema = new mongoose.Schema(
     {
-        title: {
+        title: { 
             type: String,
             required: true
         },
-        author: 
-            String,
-        
-        content: 
-            String,
-        
-        summary: 
-            String,
-    
-        publishedDate: 
-            Date,
-        
-        source: 
-            String,
-        
-        imageURL: 
-            String,
 
-        tags:
-            [String]
-        
-    });
+        content: {
+            type: String,
+            required: true
+        },
 
-export const Article = mongoose.model(`Article`, articleSchema);
+        author: {
+            type: mongoose.Schema.Types.ObjectId, 
+            ref: 'User' 
+        },
+
+        createdAt: {
+            type: Date,
+            default: Date.now
+        },
+
+        updatedAt: {
+            type: Date,
+            default: Date.now
+        }
+    }
+);
+
+export const Article = mongoose.model(`Article`, articleSchema); 
