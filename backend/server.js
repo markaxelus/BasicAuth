@@ -7,7 +7,10 @@ if (process.env.NODE_ENV !== 'production'){
     dotenv.config({ path: '../.env' });
 }
 
-const app = express(); // Define expresscd
+const app = express(); // Define express
+
+app.use(express.json()); // Middlewares for parsing json
+app.use(express.urlencoded({ extended: true}));
 
 app.get('/', (req, res) => {
     console.log(req)
