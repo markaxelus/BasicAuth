@@ -30,3 +30,34 @@ router.post('/login', async (req, res) => {
     }
 });
 
+// FETCH user profile
+router.get('/profile/:username', async (req, res) => {
+    try {
+        const user = await User.findOne({ username: req.params.username });
+        if (!user) {
+            throw new Error('User not found');
+        }
+    } catch(error) {
+        res.status(404).send(error.message);
+    }
+});
+
+// PUT: update user profile
+router.put('/update/:username', async(req, res) => {
+    try {
+        const { bio, profilePicture } = req.body;
+        const user = await User.findOneAndUpdate({ username: req.params.username }, {
+            bio: bio,
+            profilePicture: profilePicture
+        }, 
+        { 
+            new: true // Returns the updated object
+        });
+        if (!use) {
+            throw new Error("User not found");
+        }
+        res.send(`User: ${user.username} updated`)
+    } catch (error){
+        res.status(400).send(error.message);
+    }
+});
