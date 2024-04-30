@@ -2,9 +2,12 @@ import express from "express";
 import { PORT } from "./config/config.js";
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import cors from 'cors';
 
 // Routers Init
 import userRouter from './routers/userRouter.js'
+import articleRouter from './routers/articleRouter.js'
+
 
 if (process.env.NODE_ENV !== 'production'){
     dotenv.config({ path: '../.env' });
@@ -12,10 +15,22 @@ if (process.env.NODE_ENV !== 'production'){
 
 const app = express(); // Define express
 
-app.use(express.json()); // Middlewares for parsing json
+// Middlewares for CORS Policy
+// Method 1: Allow all origins with default of cors(*)
+//app.use(cors());
+// Method 2: Allow Custom Origins [better option]
+app.use({
+    origin: 'http://localhost:3000/',
+    methods: ['POST', 'PUT', 'GET', 'DELETE'],
+    allowedHeaders: ['Content-Type']
+})
+
+// Middlewares for parsing json
+app.use(express.json()); 
 app.use(express.urlencoded({ extended: true}));
 
 app.use('/users', userRouter);
+app.use('/article', articleRouter);
 
 app.get('/', (req, res) => {
     console.log(req)

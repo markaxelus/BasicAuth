@@ -5,11 +5,11 @@ const userRouter = express.Router();
 
 // POST: Register a new user
 userRouter.post('/register', async (req, res) => {
+    const { username, email, password } = req.body;
+    if (!req.body.username || !req.body.email || !req.body.password) {
+        res.status(400).send({ message : 'Send all required fields'});
+    }
     try {
-        const { username, email, password } = req.body;
-        if (!req.body.username || !req.body.email || !req.body.password) {
-            res.status(400).send({ message : 'Send all required fields'});
-        }
         // hashing password
         const newUser = new User({ username, email, password});
         await newUser.save();
@@ -40,11 +40,7 @@ userRouter.get('/profile/:username', async (req, res) => {
         if (!user) {
             throw new Error('User not found');
         }
-        const userCount = await User.countDocuments();
-        res.json({ 
-            count: userCount,
-            data: user
-        });
+        res.json({ data: user });
     } catch(error) {
         res.status(404).send(error.message);
     }

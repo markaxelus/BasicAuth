@@ -5,16 +5,16 @@ const articleRouter = express.Router();
 
 // POST: Create a new article
 articleRouter.post('/', async (req, res) => {
+    const { title, content, author } = req.body;
+    if (!title || !content || !author) {
+        res.status(400).send({ message: "Input all required fields"});
+    }
     try {
-        const { title, content, author } = req.body;
-        if (!title || !content || !author) {
-            res.status(400).send({ message: "Input all required fields"});
-        }
         const newArticle = new Article({ title, content, author});
         await newArticle.save();
         res.status(201).json({ message: "Article successfull created", article: newArticle});
     } catch(error) {
-        res.status(400).json({ error: error.message });
+        res.status(500).json({ error: error.message });
     }
 });
 
@@ -22,7 +22,11 @@ articleRouter.post('/', async (req, res) => {
 articleRouter.get('/', async (req, res) => {
     try {
         const articles = await Article.find().populate('author', 'username');
-        res.status(200).json(articles);
+        const articlesCount = await Article.countDocuments();
+        res.status(200).json({
+            count: articlesCount,
+            articles: articles,
+        });
     } catch(error) {
         res.status(500).json({ error: error.message });
     }
@@ -59,7 +63,7 @@ articleRouter.put('/:id', async (req, res) => {
         }
         res.status(200).json(article);
     } catch(error) {
-        res.status(400).json({ error: error.message });
+        res.status(500).json({ error: error.message });
     }
 });
 
