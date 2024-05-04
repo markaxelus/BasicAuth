@@ -5,15 +5,15 @@ const userRouter = express.Router();
 
 // POST: Register a new user
 userRouter.post('/register', async (req, res) => {
-    const { username, email, password } = req.body;
-    if (!req.body.username || !req.body.email || !req.body.password) {
-        res.status(400).send({ message : 'Send all required fields'});
+    const { name, email, password } = req.body;
+    if (!req.body.name || !req.body.email || !req.body.password) {
+        res.status(400).send({ message : 'Send all required fields'});  
     }
     try {
         // hashing password
-        const newUser = new User({ username, email, password});
-        await newUser.save();
-        res.status(201).send(`User successfully created, username: ${newUser.username}`);
+        const newUser = await User.create({ name, email, password});
+        res.status(201).send(`User successfully created, name: ${newUser.name}`);
+        return res.json(newUser);
     } catch (error) {
         res.status(400).send(error.message);
     }
@@ -27,16 +27,16 @@ userRouter.post('/login', async (req, res) => {
         if (!user || user.password !== password) {
             throw new Error("Auth failed");
         }
-        res.send(`User ${user.username} logged in successfully`);
+        res.send(`User ${user.name} logged in successfully`);
     } catch(error){
         res.status(401).send(error.message);
     }
 });
 
 // FETCH user profile [one]
-userRouter.get('/profile/:username', async (req, res) => {
+userRouter.get('/profile/:name', async (req, res) => {
     try {
-        const user = await User.findOne({ username: req.params.username });
+        const user = await User.findOne({ name: req.params.name });
         if (!user) {
             throw new Error('User not found');
         }
@@ -47,10 +47,10 @@ userRouter.get('/profile/:username', async (req, res) => {
 });
 
 // PUT: update user profile
-userRouter.put('/update/:username', async(req, res) => {
+userRouter.put('/update/:name', async(req, res) => {
     try {
         const { bio, profilePicture } = req.body;
-        const user = await User.findOneAndUpdate({ username: req.params.username }, {
+        const user = await User.findOneAndUpdate({ name: req.params.name }, {
             bio: bio,
             profilePicture: profilePicture
         }, 
@@ -60,7 +60,7 @@ userRouter.put('/update/:username', async(req, res) => {
         if (!user) {
             throw new Error("User not found");
         }
-        res.send(`User: ${user.username} updated`)
+        res.send(`User: ${user.name} updated`)
     } catch (error){
         res.status(400).send(error.message);
     }

@@ -14,32 +14,36 @@ if (process.env.NODE_ENV !== 'production'){
 }
 
 const app = express(); // Define express
-
-// Middlewares for CORS Policy
-// Method 1: Allow all origins with default of cors(*)
-//app.use(cors());
-// Method 2: Allow Custom Origins [better option]
-app.use(
-    cors(
-        {
-            origin: 'http://localhost:3000/',
-            methods: ['POST', 'PUT', 'GET', 'DELETE'],
-            allowedHeaders: ['Content-Type']
-        }
-    )
-);
-
-// Middlewares for parsing json
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: true}));
 
+// Middlewares for CORS Policy
+// Method 1: Allow all origins with default of cors(*)
+app.use(cors({
+    origin: 'http://localhost:5173', // Only allow this origin to make requests
+    credentials: true // Allows cookies and credentials to be sent along with the request
+  }));
+  
+// Method 2: Allow Custom Origins [better option]
+// app.use(
+//     cors(
+//         {
+//             origin: 'http://localhost:3000',
+//             methods: ['POST', 'PUT', 'GET', 'DELETE'],
+//             allowedHeaders: ['Content-Type'],
+//             credentials: true
+//         }
+//     )
+// );
+
+// Middlewares for parsing json
 app.use('/users', userRouter);
 app.use('/article', articleRouter);
 
 app.get('/', (req, res) => {
     console.log(req)
-    return res.status(234).send(`MERN Tutorial`)
-    // or res.send(`MERN Tutorial`) but generic, not used widely
+    return res.status(234).send(``)
+    // or res.send(``) but generic, not used widely
 });
 
 mongoose.connect(process.env.DATABASE_URL)
