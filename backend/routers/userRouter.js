@@ -2,6 +2,7 @@ import { User } from '../models/userModel.js';
 import express from 'express';
 import { hashPassword, comparePassword } from '../controllers/auth.js';
 import { compare } from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 const userRouter = express.Router();
 
@@ -35,7 +36,10 @@ userRouter.post('/login', async (req, res) => {
         }
         const match = await comparePassword(password, user.password);
         if (match) {
-            res.json({ message : `logged in successfully` });
+            jwt.sign({ email: user.email, id: user._id, name: user.name }, process.env.JWT_SECRET, {}, (err, token) => {
+                if (err) throw err;
+                res.cookie('token', token).json(user);
+            });
         }
 
         if (!match) {

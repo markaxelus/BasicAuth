@@ -3,6 +3,8 @@ import { PORT } from "./config/config.js";
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
+
 
 // Routers Init
 import userRouter from './routers/userRouter.js'
@@ -12,10 +14,13 @@ import articleRouter from './routers/articleRouter.js'
 if (process.env.NODE_ENV !== 'production'){
     dotenv.config({ path: '../.env' });
 }
+// Define express
+const app = express(); 
 
-const app = express(); // Define express
+// Middlewares for parsing json
 app.use(express.json()); 
-app.use(express.urlencoded({ extended: true}));
+app.use(cookieParser());
+app.use(express.urlencoded({ extended: false}));
 
 // Middlewares for CORS Policy
 // Method 1: Allow all origins with default of cors(*)
@@ -36,7 +41,6 @@ app.use(cors({
 //     )
 // );
 
-// Middlewares for parsing json
 app.use('/users', userRouter);
 app.use('/article', articleRouter);
 
