@@ -8,7 +8,6 @@ import cookieParser from 'cookie-parser';
 
 // Routers Init
 import userRouter from './routers/userRouter.js'
-import articleRouter from './routers/articleRouter.js'
 
 
 if (process.env.NODE_ENV !== 'production'){
@@ -42,7 +41,6 @@ app.use(cors({
 // );
 
 app.use('/users', userRouter);
-app.use('/article', articleRouter);
 
 app.get('/', (req, res) => {
     console.log(req)
