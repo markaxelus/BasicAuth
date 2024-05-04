@@ -1,5 +1,7 @@
 import { User } from '../models/userModel.js';
 import express from 'express';
+import { hashPassword, comparePassword } from '../controllers/auth.js';
+import { compare } from 'bcrypt';
 
 const userRouter = express.Router();
 
@@ -9,9 +11,13 @@ userRouter.post('/register', async (req, res) => {
     if (!req.body.name || !req.body.email || !req.body.password) {
         res.status(400).send({ message : 'Send all required fields'});  
     }
+    if (password.length < 6) {
+        return res.json({ error: 'Password length must be at least 6'})
+    }
     try {
         // hashing password
-        const newUser = await User.create({ name, email, password});
+        const hashedPass = await hashPassword(password);
+        const newUser = await User.create({ name, email, password: hashedPass });
         res.status(201).send(`User successfully created, name: ${newUser.name}`);
         return res.json(newUser);
     } catch (error) {
@@ -24,10 +30,18 @@ userRouter.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body;
         const user = await User.findOne({ email });
-        if (!user || user.password !== password) {
-            throw new Error("Auth failed");
+        if (!user) {
+            return res.json({ error: "No user found" });
         }
-        res.send(`User ${user.name} logged in successfully`);
+        const match = await comparePassword(password, user.password);
+        if (match) {
+            res.json({ message : `logged in successfully` });
+        }
+
+        if (!match) {
+            res.json({ error: 'password do not match' });
+        }
+    
     } catch(error){
         res.status(401).send(error.message);
     }
