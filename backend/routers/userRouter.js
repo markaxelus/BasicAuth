@@ -1,7 +1,6 @@
 import { User } from '../models/userModel.js';
 import express from 'express';
 import { hashPassword, comparePassword } from '../controllers/auth.js';
-import { compare } from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
 const userRouter = express.Router();
