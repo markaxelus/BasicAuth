@@ -3,6 +3,7 @@ import { useState } from 'react'
 import axios from 'axios'
 import { toast } from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const Register = () => {
   const navigate = useNavigate();
@@ -43,9 +44,9 @@ const Register = () => {
         <input type='email' placeholder='Email' value={data.email} onChange={(e) => setData({...data, email: e.target.value})}></input>
         <label>Password</label>
         <input type='password' placeholder='Password' value={data.password} onChange={(e) => setData({...data, password: e.target.value})}></input>
-        <button type='submit'>Log In</button>
+        <button type='submit'>Log In  </button>
       </form>
-
+      <Link to='/' >Home</Link>
     </div>
   )
 }

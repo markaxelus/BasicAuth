@@ -1,9 +1,9 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom' 
-import Navbar from './components/Navbar.jsx'
-import Home from './pages/Home.jsx'
-import Register from './pages/Register.jsx'
-import Login from './pages/Login.jsx'
+import Navbar from './components/Navbar/Navbar.jsx'
+import Home from './pages/Home/Home.jsx'
+import Register from './pages/Register/Register.jsx'
+import Login from './pages/Login/Login.jsx'
 import axios from 'axios'
 import { Toaster } from 'react-hot-toast'
 
