@@ -6,10 +6,21 @@ export default {
   ],
   theme: {
     extend: {
-      colors: {
-        charcoal: {
+
+      container: {
+        center:true
+      },
+
+      size: {
+        '128': '25rem',
+        '85' : '85%'
+      },
+
+      colors: 
+      {
+        custom: {
           1: '#ff1d52',
-          2: '#202020'
+          2: '#bf183f'
       }
     },
   },

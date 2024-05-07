@@ -36,15 +36,36 @@ const Register = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={userRegister}>
-        <label>Name</label>
-        <input type='text' placeholder='Name' value={data.name} onChange={(e) => setData({...data, name: e.target.value})}></input>
-        <label>Email</label>
-        <input type='email' placeholder='Email' value={data.email} onChange={(e) => setData({...data, email: e.target.value})}></input>
-        <label>Password</label>
-        <input type='password' placeholder='Password' value={data.password} onChange={(e) => setData({...data, password: e.target.value})}></input>
-        <button type='submit'>Log In  </button>
+    <div className=" w-full h-auto mt-20 flex flex-col justify-center items-center">
+      <form onSubmit={userRegister} className="bg-white size-128 shadow-xl rounded px-8 pt-6 pb-8 mb-4">
+
+        <div className="mb-2">
+          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
+            Name
+          </label>
+          <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type='text' placeholder='Name' value={data.name} onChange={(e) => setData({...data, name: e.target.value})}></input>
+        </div>
+
+        <div className="mb-4">
+          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
+            Email
+          </label>
+          <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type='email' placeholder='Email' value={data.email} onChange={(e) => setData({...data, email: e.target.value})} />
+        </div>
+
+        <div className="mb-6">
+          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
+            Password
+          </label>
+          <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" type='password' placeholder='Password' value={data.password} onChange={(e) => setData({...data, password: e.target.value})} />
+        </div>
+
+        <div className="flex items-center justify-between">
+          <button className="bg-custom-1 hover:text-black transition duration-500 ease-in-out text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type='submit'>
+            Sign Up
+          </button>
+        </div>
+
       </form>
       <Link to='/' >Home</Link>
     </div>
@@ -52,3 +73,29 @@ const Register = () => {
 }
 
 export default Register
+
+/* <div className=" w-full h-auto mt-20 flex flex-col justify-center items-center">
+      <form onSubmit={userLogin} className="bg-white size-128 shadow-xl rounded px-8 pt-6 pb-8 mb-4">
+        <div className="mb-4">
+          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
+            Email
+          </label>
+          <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type='email' placeholder='Email' value={data.email} onChange={(e) => setData({...data, email: e.target.value})} />
+        </div>
+        <div className="mb-6">
+          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
+            Password
+          </label>
+          <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" type='password' placeholder='Password' value={data.password} onChange={(e) => setData({...data, password: e.target.value})} />
+        </div>
+        <div className="flex items-center justify-between">
+          <button className="bg-custom-1 hover:text-black transition duration-500 ease-in-out text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type='submit'>
+            Log In
+          </button>
+          <Link to='/users/register' className="inline-block align-baseline font-bold text-sm text-custom-1 hover:text-custom-2">
+            Sign Up
+          </Link>
+        </div>
+      </form>
+
+    </div>*/
