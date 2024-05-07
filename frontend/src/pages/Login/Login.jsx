@@ -82,7 +82,7 @@ const Login = () => {
         }, 2000); 
       }
     } catch (error) {
-      toast.error('An error occurred during login. Please try again.');
+      toast.error('Email or password is incorrect. Please try again.');
     }
   }
 

@@ -5,6 +5,8 @@ import jwt from 'jsonwebtoken';
 
 const userRouter = express.Router();
 
+// Only .post routes were utilized 
+
 // POST: Register a new user
 userRouter.post('/register', async (req, res) => {
     const { name, email, password } = req.body;
@@ -84,3 +86,4 @@ userRouter.put('/update/:name', async(req, res) => {
 });
 
 export default userRouter;
+

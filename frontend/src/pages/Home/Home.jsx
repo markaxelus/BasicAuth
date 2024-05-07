@@ -6,7 +6,7 @@ const Home = ({ modalType }) => {
 
   return (
         <div className='flex items-center justify-center h-96'>
-           <div className='container mx-auto text-center text-6xl'></div>
+           <div className='container mx-auto text-center text-6xl font-bold'>Press Login</div>
             {isLoginModalOpen && <Login />}
             {isRegisterModalOpen && <Register />}
         </div>
