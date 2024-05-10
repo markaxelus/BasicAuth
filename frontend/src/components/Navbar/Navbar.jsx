@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const Navbar = () => {
   return (
     <nav className="flex justify-between items-center pt-2 pb-2 text-base pr-20 mx-10 text-white border-b border-black">
-        <Link to='/' className='text-4xl p-4 text-black font-bold'>
+        <Link to='/' className='font-bold text-custom-1 p-2 text-4xl'>
           BasicAuth.
         </Link>
 

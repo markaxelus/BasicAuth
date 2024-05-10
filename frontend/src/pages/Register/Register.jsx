@@ -2,8 +2,8 @@ import React from 'react'
 import { useState } from 'react'
 import axios from 'axios'
 import { toast } from 'react-hot-toast'
-import { useNavigate, Link } from 'react-router-dom'
-
+import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const Register = () => {
   const navigate = useNavigate();
@@ -25,16 +25,13 @@ const Register = () => {
       if (data.error) {
         toast.error(data.error);
       } else {  
-        setData({ name: '', email: '', password: '' }); // Clear the form
-        setModalContent('Registration sucessful');
-        toggleModal();
-        setTimeout(() => {
-          navigate('/');
-        }, 2000); 
+        setData({})
+        toast.success('Registration successful');
+        navigate('/users/login');
       }
 
     } catch(error) {
-      toast.error('Insert all required fields');
+      toast.error("Insert all required fields.");
     }
   };
 
@@ -70,6 +67,7 @@ const Register = () => {
         </div>
 
       </form>
+
     </div>
   )
 }
