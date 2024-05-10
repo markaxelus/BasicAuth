@@ -11,7 +11,7 @@ const userRouter = express.Router();
 userRouter.post('/register', async (req, res) => {
     const { name, email, password } = req.body;
     if (!req.body.name || !req.body.email || !req.body.password) {
-        res.status(400).send({ message : 'Send all required fields'});  
+        return res.json({ message : 'Send all required fields'});  
     }
     if (password.length < 6) {
         return res.json({ error: 'Password length must be at least 6'})
