@@ -28,11 +28,11 @@ const Login = () => {
         toast.error(data.error);
       } else {
         setData({ email: '', password: '' }); // Clear the form
-        setModalContent('User login successful');
+        toast.success('Login successful');
         toggleModal();
         setTimeout(() => {
           navigate('/');
-        }, 2000); 
+        }, 200); 
       }
     } catch (error) {
       toast.error('Email or password is incorrect. Please try again.');
@@ -65,7 +65,7 @@ const Login = () => {
             Sign Up
           </Link>
         </div>
-        
+
       </form>
 
     </div>
