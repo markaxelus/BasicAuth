@@ -9,7 +9,7 @@ This project is a user authentication system that enables users to sign up and l
 * **React + Vite**: Creates a dynamic and responsive frontend.
 * **Node.js**: Powers the backend, using nodemon for efficient development.
 
-## Frameworks and Tools 🧰
+## Frameworks & Tools 🧰
 * **bcrypt**: Ensures user security by hashing passwords. This adds an additional layer of security, making it difficult for attackers to gain access to user data.
 * **react-router-dom**: Handles routing in the frontend, providing a seamless navigation experience.
 * **JWT (JSON Web Token)**: Provides secure user authentication and session management by issuing tokens that verify user identity.
