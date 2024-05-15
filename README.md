@@ -25,21 +25,3 @@ This project is a user authentication system that enables users to sign up and l
 
 ## Live Demo 📺
 https://github.com/markaxelus/BasicAuth/assets/152938414/751c4650-22f8-48eb-b0b4-9d22838edfdc
-
-
-
- 📺
-
-
-
-
-
-
-
-
-
-
-
-
-```
-
