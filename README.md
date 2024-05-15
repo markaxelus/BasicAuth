@@ -23,5 +23,11 @@ This project is a user authentication system that enables users to sign up and l
 * **Responsive Design**: The frontend is styled with Tailwind CSS for a modern and responsive user interface.
 * **Efficient Development**: Utilizes Vite for fast build times and hot module replacement, improving the development experience.
 
-## Live Demo 📺
+## Functionality Demo 📺
 https://github.com/markaxelus/BasicAuth/assets/152938414/751c4650-22f8-48eb-b0b4-9d22838edfdc
+
+## User Security & Tracking Demo 🛑
+https://github.com/markaxelus/BasicAuth/assets/152938414/8901cf0d-524c-478b-8d27-861d6555d50e
+
+
+
